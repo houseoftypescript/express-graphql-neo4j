@@ -6,6 +6,88 @@
     "requestBodies": {},
     "responses": {},
     "schemas": {
+      "Country": {
+        "properties": {
+          "population": {
+            "type": "number",
+            "format": "double"
+          },
+          "area": {
+            "type": "number",
+            "format": "double"
+          },
+          "flag": {
+            "type": "string"
+          },
+          "timezones": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "capital": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "tld": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "borders": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "unMember": {
+            "type": "boolean"
+          },
+          "subregion": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "cca3": {
+            "type": "string"
+          },
+          "cca2": {
+            "type": "string"
+          },
+          "name": {
+            "properties": {
+              "common": {
+                "type": "string"
+              },
+              "official": {
+                "type": "string"
+              }
+            },
+            "required": ["common", "official"],
+            "type": "object"
+          }
+        },
+        "required": [
+          "population",
+          "area",
+          "flag",
+          "timezones",
+          "capital",
+          "tld",
+          "borders",
+          "unMember",
+          "subregion",
+          "region",
+          "cca3",
+          "cca2",
+          "name"
+        ],
+        "type": "object"
+      },
       "HealthResponse": {
         "properties": {
           "status": {
@@ -19,11 +101,11 @@
     "securitySchemes": {}
   },
   "info": {
-    "title": "@express/graphql",
+    "title": "@express/neo4j",
     "version": "0.0.1",
-    "description": "Express.js Template - GraphQL",
+    "description": "Express.js - GraphQL - Neo4j",
     "license": {
-      "name": "MIT"
+      "name": "GNU GPL 3.0"
     },
     "contact": {
       "name": "hieudoanm ",
@@ -32,6 +114,29 @@
   },
   "openapi": "3.0.0",
   "paths": {
+    "/countries": {
+      "get": {
+        "operationId": "GetCountries",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Country"
+                  },
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Countries"],
+        "security": [],
+        "parameters": []
+      }
+    },
     "/health": {
       "get": {
         "operationId": "GetHealth",
@@ -47,6 +152,7 @@
             }
           }
         },
+        "tags": ["Health"],
         "security": [],
         "parameters": []
       }

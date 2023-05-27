@@ -129,3 +129,8 @@ public
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# neo4j
+data
+import
+plugins

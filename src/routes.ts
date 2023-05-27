@@ -12,12 +12,60 @@ import {
   fetchMiddlewares,
 } from '@tsoa/runtime';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { CountriesController } from './modules/countries/countries.controller';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { HealthController } from './modules/health/health.controller';
 import type { RequestHandler, Router } from 'express';
 
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 const models: TsoaRoute.Models = {
+  Country: {
+    dataType: 'refAlias',
+    type: {
+      dataType: 'nestedObjectLiteral',
+      nestedProperties: {
+        population: { dataType: 'double', required: true },
+        area: { dataType: 'double', required: true },
+        flag: { dataType: 'string', required: true },
+        timezones: {
+          dataType: 'array',
+          array: { dataType: 'string' },
+          required: true,
+        },
+        capital: {
+          dataType: 'array',
+          array: { dataType: 'string' },
+          required: true,
+        },
+        tld: {
+          dataType: 'array',
+          array: { dataType: 'string' },
+          required: true,
+        },
+        borders: {
+          dataType: 'array',
+          array: { dataType: 'string' },
+          required: true,
+        },
+        unMember: { dataType: 'boolean', required: true },
+        subregion: { dataType: 'string', required: true },
+        region: { dataType: 'string', required: true },
+        cca3: { dataType: 'string', required: true },
+        cca2: { dataType: 'string', required: true },
+        name: {
+          dataType: 'nestedObjectLiteral',
+          nestedProperties: {
+            common: { dataType: 'string', required: true },
+            official: { dataType: 'string', required: true },
+          },
+          required: true,
+        },
+      },
+      validators: {},
+    },
+  },
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
   HealthResponse: {
     dataType: 'refAlias',
     type: {
@@ -37,6 +85,39 @@ export function RegisterRoutes(app: Router) {
   //  NOTE: If you do not see routes for all of your controllers in this file, then you might not have informed tsoa of where to look
   //      Please look into the "controllerPathGlobs" config option described in the readme: https://github.com/lukeautry/tsoa
   // ###########################################################################################################
+  app.get(
+    '/countries',
+    ...fetchMiddlewares<RequestHandler>(CountriesController),
+    ...fetchMiddlewares<RequestHandler>(
+      CountriesController.prototype.getCountries
+    ),
+
+    function CountriesController_getCountries(
+      request: any,
+      response: any,
+      next: any
+    ) {
+      const args = {};
+
+      // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+      let validatedArgs: any[] = [];
+      try {
+        validatedArgs = getValidatedArgs(args, request, response);
+
+        const controller = new CountriesController();
+
+        const promise = controller.getCountries.apply(
+          controller,
+          validatedArgs as any
+        );
+        promiseHandler(controller, promise, response, undefined, next);
+      } catch (err) {
+        return next(err);
+      }
+    }
+  );
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
   app.get(
     '/health',
     ...fetchMiddlewares<RequestHandler>(HealthController),

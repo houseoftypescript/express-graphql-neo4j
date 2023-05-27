@@ -1,9 +1,9 @@
-import { API } from '..';
+import { NODE_ENV } from '..';
 
 describe('environments', () => {
-  describe('API', () => {
-    it('should be localhost', () => {
-      expect(API).toEqual('http://localhost:8080/api');
+  describe('NODE_ENV', () => {
+    it('should be test', () => {
+      expect(NODE_ENV).toEqual('test');
     });
   });
 });

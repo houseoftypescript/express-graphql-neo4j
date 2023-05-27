@@ -6,14 +6,14 @@ import {
   ApolloServerPluginLandingPageProductionDefault,
 } from '@apollo/server/plugin/landingPage/default';
 import express from 'express';
+import { GraphQLSchema } from 'graphql';
 import graphqlDepthLimit from 'graphql-depth-limit';
 import http from 'http';
 import { HttpError } from 'http-errors';
 import app from './app';
+import { NODE_ENV, PORT } from './common/environments';
 import logger from './common/libs/logger';
-import { resolvers, typeDefs } from './modules';
-
-const NODE_ENV: string = process.env.NODE_ENV || 'development';
+import { neo4jSchema } from './modules/graphql.module';
 
 const normalizePort = (val: string): string | number | boolean => {
   const portOrPipe = parseInt(val, 10);
@@ -36,16 +36,18 @@ const startApolloServer = async (
   httpServer: http.Server
 ) => {
   // Port
-  const port = normalizePort(process.env.PORT || '5000');
+  const port = normalizePort(PORT);
   app.set('port', port);
   // Apollo Server
   const landingPage =
     NODE_ENV === 'production'
       ? ApolloServerPluginLandingPageProductionDefault()
       : ApolloServerPluginLandingPageLocalDefault();
+  const schema: GraphQLSchema = await neo4jSchema.getSchema();
   const server = new ApolloServer({
-    typeDefs,
-    resolvers,
+    schema,
+    // typeDefs,
+    // resolvers,
     csrfPrevention: true,
     validationRules: [graphqlDepthLimit(10)],
     introspection: NODE_ENV !== 'production',
@@ -59,7 +61,7 @@ const startApolloServer = async (
     const addr = httpServer.address();
     const bind =
       typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr?.port;
-    logger.info(`🚀 APIs is listening on ${bind}`);
+    logger.info(`🚀 Server is listening on ${bind}`);
   });
   httpServer.on('error', (error: HttpError) => {
     if (error.syscall !== 'listen') {
