@@ -67,7 +67,7 @@
     "@typescript-eslint/eslint-plugin": "5.59.8",
     "@typescript-eslint/parser": "5.59.8",
     "concurrently": "8.1.0",
-    "eslint": "8.41.0",
+    "eslint": "8.42.0",
     "husky": "8.0.3",
     "jest": "29.5.0",
     "json2yaml": "1.1.0",
