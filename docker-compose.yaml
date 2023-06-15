@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   neo4j:
-    image: neo4j:5.8.0
+    image: neo4j:5.9.0
     restart: unless-stopped
     ports:
       - 7474:7474
