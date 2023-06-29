@@ -47,7 +47,7 @@
     "helmet": "7.0.0",
     "http-errors": "2.0.0",
     "morgan": "1.10.0",
-    "neo4j-driver": "5.9.2",
+    "neo4j-driver": "5.10.0",
     "pino": "8.14.1",
     "pino-pretty": "10.0.0",
     "tsoa": "5.1.1"
